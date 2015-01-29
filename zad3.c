@@ -121,11 +121,11 @@ void changeColorPPM(PPMImage *img)
 {
     int i;
     if(img){
-
          for(i=0;i<img->x*img->y;i++){
-              img->data[i].red=RGB_COMPONENT_COLOR-img->data[i].red;
-              img->data[i].green=RGB_COMPONENT_COLOR-img->data[i].green;
-              img->data[i].blue=RGB_COMPONENT_COLOR-img->data[i].blue;
+              int x = (img->data[i].red*77) + (img->data[i].green*151) + (img->data[i].blue*28);
+              img->data[i].red = x / (RGB_COMPONENT_COLOR+1);
+              img->data[i].green = x / (RGB_COMPONENT_COLOR+1);
+              img->data[i].blue = x / (RGB_COMPONENT_COLOR+1);
          }
     }
 }
@@ -133,10 +133,10 @@ void changeColorPPM(PPMImage *img)
 int main(){
     PPMImage *image;
     printf("Before reading...\n");
-    image = readPPM("clouds.ppm");
+    image = readPPM("2052.ppm");
     changeColorPPM(image);
     printf("After reading.\nBefore writing...\n");
-    writePPM("clauds.ppm",image);
+    writePPM("2052_Changed.ppm",image);
     printf("Press any key...\n");
     getchar();
 }
