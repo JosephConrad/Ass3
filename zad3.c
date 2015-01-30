@@ -132,11 +132,21 @@ void changeColorPPM(PPMImage *img)
 
 int main(){
     PPMImage *image;
+
+    printf("Image no 1:\n");
     printf("Before reading...\n");
     image = readPPM("2052.ppm");
     changeColorPPM(image);
     printf("After reading.\nBefore writing...\n");
     writePPM("2052_Changed.ppm",image);
-    printf("Press any key...\n");
-    getchar();
+    printf("Written...\n");
+
+    printf("Image no 2:\n");
+    printf("Before reading...\n");
+    image = readPPM("teapot.ppm");
+    changeColorPPM(image);
+    printf("After reading.\nBefore writing...\n");
+    writePPM("teapot_Changed.ppm",image);
+    printf("Written...\n");
+    //getchar();
 }
