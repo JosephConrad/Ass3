@@ -3,5 +3,7 @@ all:
 	./zad3
 
 clean:
-	rm *.sw*
+	rm *.sw* *Changed.ppm
+
+
 	  
