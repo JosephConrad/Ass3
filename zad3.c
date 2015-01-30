@@ -19,7 +19,7 @@ static PPMImage *readPPM(const char *filename)
          PPMImage *img;
          FILE *fp;
          int c, rgb_comp_color;
-         //open PPM file for reading
+         
          fp = fopen(filename, "rb");
          if (!fp) {
               fprintf(stderr, "Unable to open file '%s'\n", filename);
