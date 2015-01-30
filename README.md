@@ -1,6 +1,6 @@
 Zadanie 3: zamiana koloru na skalę szarości 
 =============
-(Convert colorful picture to monochrome)
+(Assignment 3: Convert colorful image to monochrome one)
 
 Dany jest obrazek w postaci matrycy pikseli. Kolor każdego piksela zapisany jest na 24 bitach, po 8 bitów dla każdego koloru (RGB). Napiszemy procedurę w asemblerze dla procesora ARM, dokonującą konwersji obrazu na skalę szarości przez policzenie średniej ważonej.
 
