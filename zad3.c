@@ -6,7 +6,7 @@
 //#include "changeColor.c"
 extern void changeColour(Pixel *img, int x, int y);
 
-Image *readImage(const char *filename)
+static Image *readImage(const char *filename)
 {
 
 }
@@ -40,23 +40,23 @@ int main(int argc, char *argv[]){
         printf( "usage: %s filename\n", argv[0]);
         return 0;
     }
-    
+
     char buff[16];
-     Image *img;
-     FILE *fp;
-     int c, rgb_comp_color;
+    Image *img;
+    FILE *fp;
+    int c, rgb_comp_color;
     char *filename = argv[1];
      
-     fp = fopen(filename, "rb");
-     if (!fp) {
-          fprintf(stderr, "Unable to open file '%s'\n", filename);
-          exit(1);
-     } 
-     //read image format
-     if (!fgets(buff, sizeof(buff), fp)) {
-          perror(filename);
-          exit(1);
-     } 
+    fp = fopen(filename, "rb");
+    if (!fp) {
+         fprintf(stderr, "Unable to open file '%s'\n", filename);
+        exit(1);
+    } 
+    //read image format
+    if (!fgets(buff, sizeof(buff), fp)) {
+        perror(filename);
+        exit(1);
+    } 
     //check the image format
     if (buff[0] != 'P' || buff[1] != '6') {
          fprintf(stderr, "Invalid image format (must be 'P6')\n");
