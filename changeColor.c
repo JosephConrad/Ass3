@@ -1,14 +1,12 @@
 #include "zad3.h"
 
-void changeColor(Image *img)
+void changeColour(Pixel *img, int x, int y)
 {
     int i;
-    if(img){
-         for(i=0; i< img->x * img->y; i++){
-              int x = (img->data[i].red*77) + (img->data[i].green*151) + (img->data[i].blue*28);
-              img->data[i].red = x / (RGB_COMPONENT_COLOR+1);
-              img->data[i].green = x / (RGB_COMPONENT_COLOR+1);
-              img->data[i].blue = x / (RGB_COMPONENT_COLOR+1);
-         }
+    for(i=0; i< x * y; i++){
+        int val = (img[i].red*77) + (img[i].green*151) + (img[i].blue*28);
+        img[i].red = val / 256;
+        img[i].green = val / 256;
+        img[i].blue = val / 256;
     }
 }

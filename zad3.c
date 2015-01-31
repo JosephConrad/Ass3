@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "zad3.h"
-#include "changeColor.c"
 
-#define CREATOR "RPFELGUEIRAS"
-#define RGB_COMPONENT_COLOR 255
+
+//#include "changeColor.c"
+
+extern void changeColour(Pixel *img, int x, int y);
 
 static Image *readImage(const char *filename)
 {
@@ -13,7 +14,7 @@ static Image *readImage(const char *filename)
      FILE *fp;
      int c, rgb_comp_color;
      
-     fp = fopen(filename, "rb");
+     fp = fopen("2052.ppm", "r");
      if (!fp) {
           fprintf(stderr, "Unable to open file '%s'\n", filename);
           exit(1);
@@ -72,6 +73,7 @@ static Image *readImage(const char *filename)
     fclose(fp);
     return img;
 }
+
 void writeImage(const char *filename, Image *img)
 {
     FILE *fp;
@@ -101,16 +103,16 @@ int main(){
     printf("Image no 1:\n");
     printf("Before reading...\n");
     image = readImage("2052.ppm");
-    changeColor(image);
+    changeColour(image->data, image->x, image->y);
     printf("After reading.\nBefore writing...\n");
     writeImage("2052_Changed.ppm",image);
     printf("Written...\n");
 
-    printf("Image no 2:\n");
-    printf("Before reading...\n");
-    image = readImage("teapot.ppm");
-    changeColor(image);
-    printf("After reading.\nBefore writing...\n");
-    writeImage("teapot_Changed.ppm",image);
-    printf("Written...\n");
+    // printf("Image no 2:\n");
+    // printf("Before reading...\n");
+    // image = readImage("teapot.ppm");
+    // changeColour(image);
+    // printf("After reading.\nBefore writing...\n");
+    // writeImage("teapot_Changed.ppm",image);
+    // printf("Written...\n");
 }
