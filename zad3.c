@@ -4,17 +4,50 @@
 
 
 //#include "changeColor.c"
-
 extern void changeColour(Pixel *img, int x, int y);
 
-static Image *readImage(const char *filename)
+Image *readImage(const char *filename)
 {
-     char buff[16];
+
+}
+
+void writeImage(const char *filename, Image *img)
+{
+    FILE *fp;
+    //open file for output
+    fp = fopen(filename, "wb");
+    if (!fp) {
+         fprintf(stderr, "Unable to open file '%s'\n", filename);
+         exit(1);
+    }
+    //write the header file
+    //image format
+    fprintf(fp, "P6\n");
+    //comments
+    fprintf(fp, "# Created by %s\n",CREATOR);
+    //image size
+    fprintf(fp, "%d %d\n",img->x,img->y);
+    // rgb component depth
+    fprintf(fp, "%d\n",RGB_COMPONENT_COLOR);
+    // pixel data
+    fwrite(img->data, 3 * img->x, img->y, fp);
+    fclose(fp);
+}
+
+int main(int argc, char *argv[]){
+
+    if (argc != 2) { 
+        printf( "usage: %s filename\n", argv[0]);
+        return 0;
+    }
+    
+    char buff[16];
      Image *img;
      FILE *fp;
      int c, rgb_comp_color;
+    char *filename = argv[1];
      
-     fp = fopen("2052.ppm", "r");
+     fp = fopen(filename, "rb");
      if (!fp) {
           fprintf(stderr, "Unable to open file '%s'\n", filename);
           exit(1);
@@ -70,49 +103,11 @@ static Image *readImage(const char *filename)
          fprintf(stderr, "Error loading image '%s'\n", filename);
          exit(1);
     }
-    fclose(fp);
-    return img;
-}
+    fclose(fp); 
 
-void writeImage(const char *filename, Image *img)
-{
-    FILE *fp;
-    //open file for output
-    fp = fopen(filename, "wb");
-    if (!fp) {
-         fprintf(stderr, "Unable to open file '%s'\n", filename);
-         exit(1);
-    }
-    //write the header file
-    //image format
-    fprintf(fp, "P6\n");
-    //comments
-    fprintf(fp, "# Created by %s\n",CREATOR);
-    //image size
-    fprintf(fp, "%d %d\n",img->x,img->y);
-    // rgb component depth
-    fprintf(fp, "%d\n",RGB_COMPONENT_COLOR);
-    // pixel data
-    fwrite(img->data, 3 * img->x, img->y, fp);
-    fclose(fp);
-}
-
-int main(){
-    Image *image;
-
-    printf("Image no 1:\n");
     printf("Before reading...\n");
-    image = readImage("2052.ppm");
-    changeColour(image->data, image->x, image->y);
-    printf("After reading.\nBefore writing...\n");
-    writeImage("2052_Changed.ppm",image);
+    changeColour(img->data, img->x, img->y);
+    printf("After reading.\nBefore writing...\nWriting to grayscale.ppm...\n");
+    writeImage("grayscale.ppm",img);
     printf("Written...\n");
-
-    // printf("Image no 2:\n");
-    // printf("Before reading...\n");
-    // image = readImage("teapot.ppm");
-    // changeColour(image);
-    // printf("After reading.\nBefore writing...\n");
-    // writeImage("teapot_Changed.ppm",image);
-    // printf("Written...\n");
 }
